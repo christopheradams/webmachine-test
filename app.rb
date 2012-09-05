@@ -101,8 +101,8 @@ class OrderResource < JsonResource
 
   private
   def from_json
-    order = Order.new(params.merge(:id => id))
-    Order::DB[id] = order
+    order = Order.new(params)
+    order.save(id)
   end
 end
 
