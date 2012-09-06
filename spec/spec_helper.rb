@@ -10,7 +10,7 @@ RSpec.configure do |config|
   config.include JsonSpec::Helpers
 
   config.before do
-    Order::DB.clear
+    Order.delete_all
     Order.new(:email => "eric@example.com", :date => Date.parse("2012-09-04")).save
     Order.new(:email => "eric+second@example.com", :date => Date.parse("2012-09-06")).save
   end

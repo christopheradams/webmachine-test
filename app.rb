@@ -19,6 +19,10 @@ class Order
     DB.keys.max.to_i + 1
   end
 
+  def self.delete_all
+    DB.clear
+  end
+
   def to_json(options = {})
     %{{"email":"#@email", "date":"#@date", "id":#@id}}
   end
