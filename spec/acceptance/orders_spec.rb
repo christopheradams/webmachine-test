@@ -9,7 +9,7 @@ resource "Orders" do
     example "Getting all orders" do
       do_request
 
-      response_body.should be_json_eql({
+      expect(response_body).to be_json_eql({
         :orders => [
           {
             :email => "eric@example.com",
@@ -22,7 +22,7 @@ resource "Orders" do
         ]
       }.to_json)
 
-      status.should == 200
+      expect(status).to eq(200)
     end
   end
 
@@ -38,10 +38,10 @@ resource "Orders" do
     example "Creating an order" do
       do_request
 
-      response_body.should == ""
-      response_headers["Location"].should =~ /\/orders\/3$/
+      expect(response_body).to eq("")
+      expect(response_headers["Location"]).to match /\/orders\/3$/
 
-      status.should == 201
+      expect(status).to eq(201)
     end
   end
 
@@ -51,12 +51,12 @@ resource "Orders" do
     example "Viewing a single order" do
       do_request
 
-      response_body.should be_json_eql({
+      expect(response_body).to be_json_eql({
         :email => "eric@example.com",
         :date => "2012-09-04"
       }.to_json)
 
-      status.should == 200
+      expect(status).to eq(200)
     end
   end
 
@@ -66,9 +66,9 @@ resource "Orders" do
     example "Deleting an order" do
       do_request
 
-      response_body.should == ""
+      expect(response_body).to eq("")
 
-      status.should == 204
+      expect(status).to eq(204)
     end
   end
 
@@ -87,18 +87,18 @@ resource "Orders" do
     example "Updating an order" do
       do_request
 
-      response_body.should == ""
+      expect(response_body).to eq("")
 
-      status.should == 204
+      expect(status).to eq(204)
 
       client.get("/orders/#{id}")
 
-      response_body.should be_json_eql({
+      expect(response_body).to be_json_eql({
         :email => "eric@example.com",
         :date => "2012-08-10"
       }.to_json)
 
-      status.should == 200
+      expect(status).to eq(200)
     end
   end
 end
